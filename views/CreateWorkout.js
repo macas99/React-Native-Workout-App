@@ -51,26 +51,30 @@ function CreateWorkout({ navigation }) {
 
       <View style={styles.bottomContainer}>
         <ScrollView>
+
           {/* TITLE INPUT */}
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionHeader}>Title</Text>
             <TitleInput workoutName={workoutName} setWorkoutName={setWorkoutName} />
           </View>
+
           {/* SET NUMBER INPUT */}
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionHeader}>Number of Sets</Text>
             <SetCounter setNumber={setNumber} setSetNumber={setSetNumber} createSet={createSet} removeSet={removeSet} />
           </View>
-          {/* WEIGHT TOGGLE */}
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text>Weights</Text>
+
+          {/* WEIGHT SWITCH */}
+          <View style={[styles.sectionContainer, { flexDirection: 'row', alignItems: 'center' }]}>
+            <Text style={{ fontSize: 17, fontWeight: '600' }}>Weights</Text>
             <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={weightsEnabled ? '#f5dd4b' : '#f4f3f4'}
+              trackColor={{ false: '#767577', true: '#40e0d0' }}
               value={weightsEnabled}
               onValueChange={setWeightsEnabled}
+              style={{ marginLeft: 15 }}
             />
           </View>
+
           {/* SETS */}
           {sets.map((set, index) => (
             <Set
