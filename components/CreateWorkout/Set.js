@@ -1,57 +1,59 @@
 import React, { useState } from 'react';
 import { TextInput } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements';
-
 
 function Set({ index, weightsEnabled, onChange }) {
-  const [reps, setReps] = useState('');
-  const [rest, setRest] = useState('');
-  const [weight, setWeight] = useState('');
+  const [setValues, setSetValues] = useState({
+    reps: '',
+    restMin: '',
+    restSec: '',
+    weight: '',
+  });
+
+  const handleChange = (field, value) => {
+    setSetValues(prevValues => ({
+      ...prevValues,
+      [field]: value,
+    }));
+    onChange(index, field, value);
+  };
+
+  const renderInputField = (label, fieldKey) => (
+    <View style={styles.inputSection}>
+      {label && (
+        <View style={styles.inputSectionText}>
+          <Text style={styles.label}>{label}</Text>
+        </View>
+      )}
+
+      <TextInput
+        style={styles.input}
+        value={setValues[fieldKey]}
+        onChangeText={value => handleChange(fieldKey, value)}
+        keyboardType="numeric"
+      />
+    </View>
+  );
 
   return (
     <View style={styles.setItem}>
+      <Text style={{ fontSize: 17, fontWeight: '800', marginBottom: 5 }}>Set#{index + 1}</Text>
 
-      <Text style={{ fontSize: 17, fontWeight: '800', marginBottom: 5 }}>Set {index + 1}</Text>
+      {renderInputField('Reps', 'reps')}
 
-      {/* REP INPUT */}
       <View style={styles.inputSection}>
-        <Text style={styles.label}>Reps</Text>
-        <TextInput
-          style={styles.input}
-          value={reps}
-          onChangeText={value => {
-            setReps(value);
-            onChange(index, 'reps', value);
-          }}
-          keyboardType="numeric"
-        />
+        {renderInputField('Rest', 'restMin', { marginLeft: 5, marginRight: 10 })}
+        <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>min</Text>
+        {renderInputField('', 'restSec', { marginLeft: 5, marginRight: 10 })}
+        <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>sec</Text>
       </View>
 
-      {/* REST TIME INPUT */}
-
-      <Input
-        label="Rest Time (min)"
-        value={rest}
-        onChangeText={value => {
-          setRest(value);
-          onChange(index, 'rest', value);
-        }}
-        keyboardType="numeric"
-      />
-
       {weightsEnabled && (
-        <Input
-          label="Weight (kg)"
-          value={weight}
-          onChangeText={value => {
-            setWeight(value);
-            onChange(index, 'weight', value);
-          }}
-          keyboardType="numeric"
-        />
+        <View style={styles.inputSection}>
+          {renderInputField('Weight', 'weight')}
+          <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>kg</Text>
+        </View>
       )}
-
     </View>
   );
 }
@@ -69,12 +71,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  label: {
+  inputSectionText: {
+    width: 55,
+    alignItems: 'flex-end',
     marginRight: 10,
-    fontSize: 16
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500'
   },
   input: {
-    borderBottomWidth: 1,
-    width: 50
+    borderRadius: 5,
+    backgroundColor: '#cae8e5',
+    textAlign: 'center',
+    width: 40,
+    fontSize: 17,
+    marginBottom: 2
   },
 });
