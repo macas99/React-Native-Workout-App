@@ -26,11 +26,23 @@ function Set({ index, weightsEnabled, onChange }) {
         </View>
       )}
 
+      {/* ADD MORE INPUT VALIDATION */}
       <TextInput
         style={styles.input}
         value={setValues[fieldKey]}
-        onChangeText={value => handleChange(fieldKey, value)}
+        maxLength={fieldKey === 'weight' ? 5 : 2}
+        placeholder='00'
         keyboardType="numeric"
+        onChangeText={value => {
+          if (fieldKey !== 'weight' && value.includes(',')) {
+            return;
+          }
+          if (fieldKey === 'weight' && (value.length > 5 || value.split(',').length - 1 > 1)) {
+            return;
+          }
+          handleChange(fieldKey, value)
+        }}
+
       />
     </View>
   );
@@ -43,15 +55,15 @@ function Set({ index, weightsEnabled, onChange }) {
 
       <View style={styles.inputSection}>
         {renderInputField('Rest', 'restMin', { marginLeft: 5, marginRight: 10 })}
-        <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>min</Text>
+        <Text style={[styles.label, { marginLeft: 5, marginRight: 10, fontWeight: '300' }]}>min</Text>
         {renderInputField('', 'restSec', { marginLeft: 5, marginRight: 10 })}
-        <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>sec</Text>
+        <Text style={[styles.label, { marginLeft: 5, marginRight: 10, fontWeight: '300' }]}>sec</Text>
       </View>
 
       {weightsEnabled && (
         <View style={styles.inputSection}>
           {renderInputField('Weight', 'weight')}
-          <Text style={[styles.label, { marginLeft: 5, marginRight: 10 }]}>kg</Text>
+          <Text style={[styles.label, { marginLeft: 5, marginRight: 10, fontWeight: '300' }]}>kg</Text>
         </View>
       )}
     </View>
@@ -84,7 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#cae8e5',
     textAlign: 'center',
-    width: 40,
+    width: 60,
     fontSize: 17,
     marginBottom: 2
   },
