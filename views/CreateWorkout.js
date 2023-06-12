@@ -1,13 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, View, Text, Pressable, Button, ScrollView, Switch } from 'react-native';
+import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 import SetCounter from '../components/CreateWorkout/SetCounter';
 import TitleInput from '../components/CreateWorkout/TitleInput';
 import Set from '../components/CreateWorkout/Set';
-import { Input } from 'react-native-elements';
+import ActionButtons from '../components/CreateWorkout/ActionButtons';
 
 // CHECK OUT : Asset Caching Preloading
 
@@ -96,26 +94,9 @@ function CreateWorkout({ navigation }) {
 
 
       {setNumber > 0 && (
-        <View style={styles.buttonContainer}>
-          <Pressable
-            style={styles.cancelButton}
-
-            onPress={() => {
-              console.log("CANCEL")
-            }}
-          >
-            <Text style={styles.buttonText}>Cancel</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.addButton}
-            onPress={() => {
-              console.log("ADD")
-            }}
-          >
-            <Text style={styles.buttonText}>Add</Text>
-          </Pressable>
-        </View>
+        <ActionButtons
+          navigateHome={() => navigation.navigate('Home')}
+          addSets={() => console.log(sets)} />
       )}
 
 
@@ -168,41 +149,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 16
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    // borderWidth: 1,
-    borderRadius: 10,
-    paddingBottom: 40,
-    padding: 20,
-    justifyContent: 'space-between',
-    position: 'absolute',
-    bottom: 0,
-    right: 15,
-    left: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-  },
-  addButton: {
-    flex: 1,
-    borderWidth: 1,
-    backgroundColor: 'white',
-    borderRadius: 8
-
-  },
-  cancelButton: {
-    flex: 1,
-    borderWidth: 1,
-    marginRight: 30,
-    backgroundColor: 'white',
-    borderRadius: 8
-  },
-  buttonText: {
-    textAlign: 'center',
-    padding: 10,
-    color: 'black',
-    // Add any other styles you want for the button text
-  },
-
   overlay: {
-    marginBottom: 90
+    marginBottom: 110
   }
 });
