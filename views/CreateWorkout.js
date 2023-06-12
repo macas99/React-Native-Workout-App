@@ -22,15 +22,11 @@ function CreateWorkout({ navigation }) {
   };
 
   const createSet = () => {
-    const num = parseInt(setNumber + 1);
-    const newSets = new Array(num).fill({});
-    setSets(newSets);
+    setSets(prevSets => [...prevSets, {}]);
   };
 
   const removeSet = () => {
-    const num = parseInt(setNumber - 1);
-    const newSets = new Array(num).fill({});
-    setSets(newSets);
+    setSets(prevSets => prevSets.slice(0, -1));
   };
 
   return (
