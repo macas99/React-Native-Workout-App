@@ -29,6 +29,14 @@ function CreateWorkout({ navigation }) {
     setSets(prevSets => prevSets.slice(0, -1));
   };
 
+  const saveWorkout = () => {
+    const newWorkout = {
+      name: workoutName,
+      sets: [...sets]
+    };
+    console.log(newWorkout)
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.appContainer}
@@ -92,7 +100,7 @@ function CreateWorkout({ navigation }) {
       {setNumber > 0 && (
         <ActionButtons
           navigateHome={() => navigation.navigate('Home')}
-          addSets={() => console.log(sets)} />
+          addSets={saveWorkout} />
       )}
 
 
