@@ -6,6 +6,7 @@ import SetCounter from '../components/CreateWorkout/SetCounter';
 import TitleInput from '../components/CreateWorkout/TitleInput';
 import Set from '../components/CreateWorkout/Set';
 import ActionButtons from '../components/CreateWorkout/ActionButtons';
+import storageService from '../DAO/storage.service';
 
 // CHECK OUT : Asset Caching Preloading
 
@@ -34,7 +35,7 @@ function CreateWorkout({ navigation }) {
       name: workoutName,
       sets: [...sets]
     };
-    console.log(newWorkout)
+    storageService.storeWorkout(newWorkout).then(() => navigation.navigate('Home'));
   }
 
   return (

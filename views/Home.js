@@ -1,10 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, View, Text, Button, Pressable } from 'react-native';;
 import HomeHeader from '../components/Home/HomeHeader';
 import AddButton from '../components/Home/AddButton';
+import storageService from '../DAO/storage.service';
 
 function Home({ navigation }) {
+
+  useFocusEffect(
+    useCallback(() => {
+      storageService.getWorkoutData().then(workoutData => {
+        console.log(workoutData);
+        // console.log(JSON.stringify(workoutData, null, 2));
+      });
+    }, [])
+  );
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.topContainer}>
