@@ -14,6 +14,7 @@ function Home({ navigation }) {
         console.log(workoutData);
         // console.log(JSON.stringify(workoutData, null, 2));
       });
+      // storageService.clearAllData()
     }, [])
   );
 

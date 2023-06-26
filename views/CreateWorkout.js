@@ -31,9 +31,19 @@ function CreateWorkout({ navigation }) {
   };
 
   const saveWorkout = () => {
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = currentDate.getMonth() + 1;
+    let date = currentDate.getDate();
+    if (month < 10) month = '0' + month;
+    if (date < 10) date = '0' + date;
+    const formattedDate = `${year}-${month}-${date}`;
+
     const newWorkout = {
       name: workoutName,
-      sets: [...sets]
+      sets: [...sets],
+      date: formattedDate,
     };
     storageService.storeWorkout(newWorkout).then(() => navigation.navigate('Home'));
   }
