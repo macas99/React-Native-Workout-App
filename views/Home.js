@@ -5,16 +5,19 @@ import { StyleSheet, View, Text, Button, Pressable } from 'react-native';;
 import HomeHeader from '../components/Home/HomeHeader';
 import AddButton from '../components/Home/AddButton';
 import storageService from '../DAO/storage.service';
+import WorkoutList from '../components/Home/WorkoutList';
 
 function Home({ navigation }) {
+  const [workouts, setWorkouts] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
       storageService.getWorkoutData().then(workoutData => {
         console.log(workoutData);
+        setWorkouts(workoutData)
         // console.log(JSON.stringify(workoutData, null, 2));
       });
-      // storageService.clearAllData()
+      ///////// storageService.clearAllData()
     }, [])
   );
 
@@ -26,7 +29,7 @@ function Home({ navigation }) {
       </View>
 
       <View style={styles.bottomContainer}>
-        <Text>This is Home.js!</Text>
+        <WorkoutList workouts={workouts} navigation={navigation}/>
       </View>
     </View>
 
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 6,
     paddingHorizontal: 10,
+    borderWidth: 1
   },
 
 });
