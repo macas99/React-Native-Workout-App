@@ -14,7 +14,8 @@ function Home({ navigation }) {
     useCallback(() => {
       storageService.getWorkoutData().then(workoutData => {
         console.log(workoutData);
-        setWorkouts(workoutData)
+        workoutData.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setWorkouts(workoutData);
         // console.log(JSON.stringify(workoutData, null, 2));
       });
       ///////// storageService.clearAllData()
