@@ -14,11 +14,15 @@ function Home({ navigation }) {
     useCallback(() => {
       storageService.getWorkoutData().then(workoutData => {
         console.log(workoutData);
-        workoutData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        setWorkouts(workoutData);
+        if (workoutData && workoutData.length > 0) {
+          workoutData.sort((a, b) => new Date(b.date) - new Date(a.date));
+          setWorkouts(workoutData);
+        } else {
+          console.log("No workouts found");
+        }
         // console.log(JSON.stringify(workoutData, null, 2));
       });
-      ///////// storageService.clearAllData()
+      ////// storageService.clearAllData()
     }, [])
   );
 
@@ -30,7 +34,7 @@ function Home({ navigation }) {
       </View>
 
       <View style={styles.bottomContainer}>
-        <WorkoutList workouts={workouts} navigation={navigation}/>
+        <WorkoutList workouts={workouts} navigation={navigation} />
       </View>
     </View>
 
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 6,
     paddingHorizontal: 10,
-    borderWidth: 1
+    // borderWidth: 1
   },
 
 });

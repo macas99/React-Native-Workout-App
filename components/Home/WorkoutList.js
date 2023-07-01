@@ -26,25 +26,34 @@ function WorkoutList(props) {
 
   return (
     <View style={styles.workoutList}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        data={props.workouts}
-        renderItem={(itemData) => {
-          const lastItem = itemData.index === props.workouts.length - 1;
-          const formattedDate = formatDate(itemData.item.date);
-          const isDateRendered = renderedDates.includes(formattedDate);
-          if (!isDateRendered) {
-            renderedDates.push(formattedDate);
-          }
-          return (
-            <View>
-              {!isDateRendered && <Text style={styles.dateHeader}>{formattedDate}</Text>}
-              <Text>{itemData.item.name} - {itemData.item.date}</Text>
-            </View>
-          );
-        }}
-      />
+
+      {props.workouts.length == 0
+        ?
+        <View style={styles.messageContainer}>
+          <Text style={styles.messageText}>You don't have any workouts saved yet</Text>
+          <Text style={styles.messageText}>Press ADD to create your first workout</Text>
+        </View>
+        :
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          data={props.workouts}
+          renderItem={(itemData) => {
+            const lastItem = itemData.index === props.workouts.length - 1;
+            const formattedDate = formatDate(itemData.item.date);
+            const isDateRendered = renderedDates.includes(formattedDate);
+            if (!isDateRendered) {
+              renderedDates.push(formattedDate);
+            }
+            return (
+              <View>
+                {!isDateRendered && <Text style={styles.dateHeader}>{formattedDate}</Text>}
+                <Text>{itemData.item.name} - {itemData.item.date}</Text>
+              </View>
+            );
+          }}
+        />
+      }
     </View>
   );
 }
@@ -59,4 +68,16 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     borderRadius: 20,
   },
+  messageContainer: {
+    paddingBottom: 50,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  messageText: {
+    color: '#ccc',
+    fontWeight: '500',
+    textAlign: 'center',
+    fontSize: 17
+  }
 });
