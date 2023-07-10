@@ -35,6 +35,7 @@ function WorkoutList(props) {
         </View>
         :
         <FlatList
+          style={styles.flatList}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           data={props.workouts}
@@ -48,7 +49,11 @@ function WorkoutList(props) {
             return (
               <View>
                 {!isDateRendered && <Text style={styles.dateHeader}>{formattedDate}</Text>}
-                <Text>{itemData.item.name} - {itemData.item.date}</Text>
+                <View style={styles.listItem}>
+                  <Text style={styles.titleText}>{itemData.item.name}</Text>
+                  <Text>Last: {itemData.item.date}</Text>
+                </View>
+
               </View>
             );
           }}
@@ -62,10 +67,12 @@ export default WorkoutList;
 
 
 const styles = StyleSheet.create({
+  flatList: {
+    height: '100%',
+    // borderWidth: 1
+  },
   workoutList: {
-    marginHorizontal: 5,
     marginTop: 20,
-    marginBottom: 30,
     borderRadius: 20,
   },
   messageContainer: {
@@ -79,5 +86,20 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     fontSize: 17
+  },
+  dateHeader: {
+    fontSize: 22,
+    fontWeight: 600,
+    marginVertical: 5
+  },
+  listItem: {
+    borderWidth: 1,
+    marginVertical: 2,
+    borderRadius: 2,
+    padding: 5
+  },
+  titleText:{
+    fontSize: 17,
+    fontWeight: 600,
   }
 });
