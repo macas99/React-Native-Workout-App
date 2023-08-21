@@ -30,7 +30,7 @@ function CreateWorkout({ navigation }) {
     setSets(prevSets => prevSets.slice(0, -1));
   };
 
-  const saveWorkout = () => {
+  const saveWorkout = async () => {
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -39,6 +39,12 @@ function CreateWorkout({ navigation }) {
     if (month < 10) month = '0' + month;
     if (date < 10) date = '0' + date;
     const formattedDate = `${year}-${month}-${date}`;
+
+    const existingWorkouts = await storageService.getWorkoutData();
+    if (existingWorkouts.some(workout => workout.name === workoutName)) {
+      alert("A workout with this name already exists! Please choose a different name.");
+      return;
+    }
 
     const newWorkout = {
       name: workoutName,

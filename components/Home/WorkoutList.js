@@ -1,5 +1,13 @@
 import { StyleSheet, View, Text, SectionList } from 'react-native';
 
+function formatDateToNewFormat(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // +1 because months are 0-indexed
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
 
 function WorkoutList(props) {
   if (props.workouts.length === 0) {
@@ -21,7 +29,7 @@ function WorkoutList(props) {
       renderItem={({ item }) => (
         <View style={styles.listItem}>
           <Text style={styles.titleText}>{item.name}</Text>
-          <Text>Last: {item.date}</Text>
+          <Text style={styles.dateText}>{formatDateToNewFormat(item.date)}</Text>
         </View>
       )}
       renderSectionHeader={({ section: { title } }) => (
@@ -69,5 +77,8 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
     fontWeight: 600,
+  },
+  dateText: {
+    fontWeight: 400,
   }
 });
