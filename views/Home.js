@@ -1,11 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { StyleSheet, View, Text, Button, Pressable } from 'react-native';;
+import { StyleSheet, View } from 'react-native';;
 import HomeHeader from '../components/Home/HomeHeader';
 import AddButton from '../components/Home/AddButton';
 import storageService from '../DAO/storage.service';
 import WorkoutList from '../components/Home/WorkoutList';
+
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  // const now = new Date(2023, 6, 16);
+  const tenDaysAgo = new Date();
+  tenDaysAgo.setDate(now.getDate() - 10);
+
+  if (date.toDateString() === now.toDateString()) {
+    return "Today";
+  } else if (date > tenDaysAgo) {
+    return "Last 10 days";
+  } else if (date.getFullYear() === now.getFullYear()) {
+    return date.toLocaleString('default', { month: 'long' });
+  } else {
+    return date.getFullYear().toString();
+  }
+}
+
+function sectionWorkouts(workouts) {
+  let sections = [];
+
+  workouts.forEach(workout => {
+    const formattedDate = formatDate(workout.date);
+    let section = sections.find(sec => sec.title === formattedDate);
+    if (!section) {
+      section = { title: formattedDate, data: [] };
+      sections.push(section);
+    }
+    section.data.push(workout);
+  });
+
+  return sections;
+}
 
 function Home({ navigation }) {
   const [workouts, setWorkouts] = useState([]);
@@ -16,15 +51,15 @@ function Home({ navigation }) {
         console.log(workoutData);
         if (workoutData && workoutData.length > 0) {
           workoutData.sort((a, b) => new Date(b.date) - new Date(a.date));
-          setWorkouts(workoutData);
+          const sectionedData = sectionWorkouts(workoutData);
+          setWorkouts(sectionedData);
         } else {
           console.log("No workouts found");
         }
-        // console.log(JSON.stringify(workoutData, null, 2));
       });
-      ////// storageService.clearAllData()
     }, [])
   );
+
 
   return (
     <View style={styles.appContainer}>

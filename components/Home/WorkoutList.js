@@ -1,65 +1,33 @@
-import { useEffect } from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, Text, SectionList } from 'react-native';
 
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const now = new Date();
-  // const now = new Date(2023, 6, 16);
-  const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(now.getDate() - 10);
-
-  if (date.toDateString() === now.toDateString()) {
-    return "Today";
-  } else if (date > tenDaysAgo) {
-    return "Last 10 days";
-  } else if (date.getFullYear() === now.getFullYear()) {
-    return date.toLocaleString('default', { month: 'long' });
-  } else {
-    return date.getFullYear().toString();
-  }
-}
 
 function WorkoutList(props) {
-  // props.workouts must be sorted by date
-  let renderedDates = [];
+  if (props.workouts.length === 0) {
+    return (
+      <View style={styles.messageContainer}>
+        <Text style={styles.messageText}>You don't have any workouts saved yet</Text>
+        <Text style={styles.messageText}>Press ADD to create your first workout</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.workoutList}>
-
-      {props.workouts.length == 0
-        ?
-        <View style={styles.messageContainer}>
-          <Text style={styles.messageText}>You don't have any workouts saved yet</Text>
-          <Text style={styles.messageText}>Press ADD to create your first workout</Text>
+    <SectionList
+      showsVerticalScrollIndicator={false}
+      stickySectionHeadersEnabled={false}
+      style={styles.flatList}
+      sections={props.workouts}
+      keyExtractor={(item, index) => item.id || index.toString()}
+      renderItem={({ item }) => (
+        <View style={styles.listItem}>
+          <Text style={styles.titleText}>{item.name}</Text>
+          <Text>Last: {item.date}</Text>
         </View>
-        :
-        <FlatList
-          style={styles.flatList}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          data={props.workouts}
-          renderItem={(itemData) => {
-            const lastItem = itemData.index === props.workouts.length - 1;
-            const formattedDate = formatDate(itemData.item.date);
-            const isDateRendered = renderedDates.includes(formattedDate);
-            if (!isDateRendered) {
-              renderedDates.push(formattedDate);
-            }
-            return (
-              <View>
-                {!isDateRendered && <Text style={styles.dateHeader}>{formattedDate}</Text>}
-                <View style={styles.listItem}>
-                  <Text style={styles.titleText}>{itemData.item.name}</Text>
-                  <Text>Last: {itemData.item.date}</Text>
-                </View>
-
-              </View>
-            );
-          }}
-        />
-      }
-    </View>
+      )}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text style={styles.dateHeader}>{title}</Text>
+      )}
+    />
   );
 }
 
@@ -98,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     padding: 5
   },
-  titleText:{
+  titleText: {
     fontSize: 17,
     fontWeight: 600,
   }
