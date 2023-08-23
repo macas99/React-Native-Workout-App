@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text, SectionList } from 'react-native';
+import WorkoutItem from './WorkoutItem';
 
 function formatDateToNewFormat(dateString) {
   const date = new Date(dateString);
@@ -27,10 +28,10 @@ function WorkoutList(props) {
       sections={props.workouts}
       keyExtractor={(item, index) => item.id || index.toString()}
       renderItem={({ item }) => (
-        <View style={styles.listItem}>
-          <Text style={styles.titleText}>{item.name}</Text>
-          <Text style={styles.dateText}>{formatDateToNewFormat(item.date)}</Text>
-        </View>
+        <WorkoutItem
+          name={item.name}
+          date={formatDateToNewFormat(item.date)}
+        />
       )}
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.dateHeader}>{title}</Text>
@@ -39,6 +40,8 @@ function WorkoutList(props) {
   );
 }
 
+// <Text style={styles.titleText}>{item.name}</Text>
+// <Text style={styles.dateText}>{formatDateToNewFormat(item.date)}</Text>
 export default WorkoutList;
 
 
