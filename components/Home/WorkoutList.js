@@ -22,6 +22,7 @@ function WorkoutList(props) {
         <WorkoutItem
           name={item.name}
           date={item.date}
+          sets={item.sets}
           navigation={props.navigation}
         />
       )}

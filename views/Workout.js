@@ -6,7 +6,7 @@ import { formatDateToNewFormat } from '../utils/dateFormat';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
-
+  console.log(route.params.sets)
   const getWorkoutInfo = async () => {
     try {
       const info = await storageService.getWorkoutInfo(route.params.name);
