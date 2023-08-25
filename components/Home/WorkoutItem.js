@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 function WorkoutItem({ name, date, navigation }) {
 
   return (
-    <Pressable onPress={() => navigation.navigate('Workout')}>
-      {/* <Pressable onPress={() => navigation.navigate('Workout', { name: name, uuid: uuid })}> */}
-
+    <Pressable onPress={() => navigation.navigate('Workout', { name: name })}>
       < View style={styles.listItem}>
         <Text style={styles.titleText}>{name}</Text>
         <Text style={styles.dateText}>{date}</Text>
