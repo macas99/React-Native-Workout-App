@@ -48,7 +48,7 @@ function Home({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       storageService.getWorkoutData().then(workoutData => {
-        console.log(workoutData);
+        // console.log(workoutData);
         if (workoutData && workoutData.length > 0) {
           workoutData.sort((a, b) => new Date(b.date) - new Date(a.date));
           const sectionedData = sectionWorkouts(workoutData);

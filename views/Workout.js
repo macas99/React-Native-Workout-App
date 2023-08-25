@@ -1,8 +1,23 @@
 import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-
+import React, { useEffect, useState } from 'react';
+import storageService from '../DAO/storage.service';
 
 function Workout({ route, navigation }) {
+  const [workoutInfo, setWorkoutInfo] = useState(null);
+
+  const getWorkoutInfo = async () => {
+    try {
+      const info = await storageService.getWorkoutInfo(route.params.name);
+      setWorkoutInfo(info);
+    } catch (error) {
+      console.log("No workouts found");
+    }
+  };
+
+  useEffect(() => {
+    getWorkoutInfo();
+  }, []);
 
   return (
     <View style={styles.appContainer}>
@@ -17,6 +32,12 @@ function Workout({ route, navigation }) {
           <FontAwesome5 name="ellipsis-v" size={24} color="black" />
         </Pressable>
       </View>
+
+      {workoutInfo ? (
+        <Text>Created: {workoutInfo.creation}</Text>
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </View>
 
   );
