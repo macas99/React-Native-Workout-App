@@ -11,10 +11,34 @@ class StorageService {
       }
       workouts.push(workout);
       await AsyncStorage.setItem('@workout_data', JSON.stringify(workouts));
+      await this.createWorkoutItem(workout.date, workout.name);
+
     } catch (e) {
       console.error('Failed to save the data to the storage');
     }
   }
+
+  async createWorkoutItem(creationDate, name) {
+    let workoutLog = {
+      creation: creationDate,
+      history: []
+    };
+    console.log(workoutLog)
+    await AsyncStorage.setItem('@' + name, JSON.stringify(workoutLog));
+  }
+
+  async getWorkoutInfo(workout) {
+    try {
+      const info = await AsyncStorage.getItem('@' + workout);
+      if (info != null) {
+        return JSON.parse(info);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  }
+
 
   async getWorkoutData() {
     try {
