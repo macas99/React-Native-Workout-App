@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-nat
 import { FontAwesome5 } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import storageService from '../DAO/storage.service';
+import { formatDateToNewFormat } from '../utils/dateFormat';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
@@ -34,7 +35,7 @@ function Workout({ route, navigation }) {
       </View>
 
       {workoutInfo ? (
-        <Text>Created: {workoutInfo.creation}</Text>
+        <Text>Created: {formatDateToNewFormat(workoutInfo.creation)}</Text>
       ) : (
         <Text>Loading...</Text>
       )}

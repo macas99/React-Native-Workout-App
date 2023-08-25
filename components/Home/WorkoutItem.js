@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { formatDateToNewFormat } from '../../utils/dateFormat';
 
 function WorkoutItem({ name, date, navigation }) {
 
@@ -6,7 +7,7 @@ function WorkoutItem({ name, date, navigation }) {
     <Pressable onPress={() => navigation.navigate('Workout', { name: name })}>
       < View style={styles.listItem}>
         <Text style={styles.titleText}>{name}</Text>
-        <Text style={styles.dateText}>{date}</Text>
+        <Text style={styles.dateText}>{formatDateToNewFormat(date)}</Text>
       </View>
     </Pressable >
   );
