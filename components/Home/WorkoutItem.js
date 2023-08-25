@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 
-function WorkoutItem({ name, date }) {
+function WorkoutItem({ name, date, navigation }) {
 
   return (
-    <View style={styles.listItem}>
-      <Text style={styles.titleText}>{name}</Text>
-      <Text style={styles.dateText}>{date}</Text>
-    </View>
+    <Pressable onPress={() => navigation.navigate('Workout')}>
+      {/* <Pressable onPress={() => navigation.navigate('Workout', { name: name, uuid: uuid })}> */}
+
+      < View style={styles.listItem}>
+        <Text style={styles.titleText}>{name}</Text>
+        <Text style={styles.dateText}>{date}</Text>
+      </View>
+    </Pressable >
   );
 }
 
