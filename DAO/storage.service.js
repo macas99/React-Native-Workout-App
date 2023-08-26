@@ -29,13 +29,13 @@ class StorageService {
         if (index !== -1) {
           workouts.splice(index, 1);
           await AsyncStorage.setItem('@workout_data', JSON.stringify(workouts));
-          await deleteWorkoutItem(targetWorkoutName);
+          await this.deleteWorkoutItem(targetWorkoutName);
         } else {
           console.log(`Workout not found ${targetWorkoutName}`);
         }
       }
     } catch (e) {
-      console.error('Error deleting workout');
+      console.error('Error deleting workout', e);
     }
   }
 

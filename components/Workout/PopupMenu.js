@@ -1,11 +1,28 @@
-import { StyleSheet, View, Text, Pressable, TouchableOpacity, Animated, Easing, Modal, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, Alert, TouchableOpacity, Animated, Easing, Modal, SafeAreaView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import React, { useState, useRef } from 'react';
+import storageService from '../../DAO/storage.service';
 
-
-function PopupMenu(props) {
+function PopupMenu({ name, navigation }) {
   const [visible, setVisible] = useState(false);
   const scale = useRef(new Animated.Value(0)).current;
+
+  const deleteWorkoutAlert = () => {
+    Alert.alert('Delete workout', 'Are you sure you want to delete this workout?', [
+      {
+        text: 'Cancel',
+        onPress: () => { },
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: async () => {
+          await storageService.deleteStoredWorkout(name)
+          navigation.goBack();
+        }
+      },
+    ]);
+  }
 
   function resizeBox(to) {
     to == 1 && setVisible(true);
@@ -33,7 +50,7 @@ function PopupMenu(props) {
             }
           ]}>
 
-            <TouchableOpacity style={styles.delete} onPress={() => alert('delete')}>
+            <TouchableOpacity style={styles.delete} onPress={deleteWorkoutAlert}>
               <Text style={styles.text}>Delete</Text>
               <FontAwesome5 name='trash' size={20} color="red" style={{ marginLeft: 10 }} />
             </TouchableOpacity>

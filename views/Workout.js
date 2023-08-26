@@ -30,7 +30,7 @@ function Workout({ route, navigation }) {
         <View style={styles.headerContainer}>
           <Text style={styles.titleText}>{route.params.name}</Text>
         </View>
-        <PopupMenu />
+        <PopupMenu name={route.params.name} navigation={navigation} />
       </View>
 
       {workoutInfo ? (
