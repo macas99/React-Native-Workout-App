@@ -41,7 +41,7 @@ function CreateWorkout({ navigation }) {
     const formattedDate = `${year}-${month}-${date}`;
 
     const existingWorkouts = await storageService.getWorkoutData();
-    if (existingWorkouts.some(workout => workout.name === workoutName)) {
+    if (existingWorkouts && existingWorkouts.some(workout => workout.name === workoutName)) {
       alert("A workout with this name already exists! Please choose a different name.");
       return;
     }
