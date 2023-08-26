@@ -18,6 +18,27 @@ class StorageService {
     }
   }
 
+
+  async deleteStoredWorkout(targetWorkoutName) {
+    try {
+      const storedWorkouts = await AsyncStorage.getItem('@workout_data');
+      if (storedWorkouts) {
+        let workouts = JSON.parse(storedWorkouts);
+        const index = workouts.findIndex(workout => workout.name === targetWorkoutName);
+
+        if (index !== -1) {
+          workouts.splice(index, 1);
+          await AsyncStorage.setItem('@workout_data', JSON.stringify(workouts));
+          await deleteWorkoutItem(targetWorkoutName);
+        } else {
+          console.log(`Workout not found ${targetWorkoutName}`);
+        }
+      }
+    } catch (e) {
+      console.error('Error deleting workout');
+    }
+  }
+
   async createWorkoutItem(creationDate, name) {
     let workoutLog = {
       creation: creationDate,
@@ -26,6 +47,15 @@ class StorageService {
     console.log(workoutLog)
     await AsyncStorage.setItem('@' + name, JSON.stringify(workoutLog));
   }
+
+  async deleteWorkoutItem(name) {
+    try {
+      await AsyncStorage.removeItem('@' + name);
+    } catch (error) {
+      console.log(`Error deleting workout item ${error}`);
+    }
+  }
+
 
   async getWorkoutInfo(workout) {
     try {

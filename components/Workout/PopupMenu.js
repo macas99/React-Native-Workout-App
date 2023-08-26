@@ -34,8 +34,8 @@ function PopupMenu(props) {
           ]}>
 
             <TouchableOpacity style={styles.delete} onPress={() => alert('delete')}>
-              <Text>Delete</Text>
-              <FontAwesome5 name='trash' size={24} color="red" style={{ marginLeft: 10 }} />
+              <Text style={styles.text}>Delete</Text>
+              <FontAwesome5 name='trash' size={20} color="red" style={{ marginLeft: 10 }} />
             </TouchableOpacity>
 
           </Animated.View>
@@ -71,6 +71,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 7,
+  },
+  text: {
+    fontSize: 17,
+    fontWeight: '600'
   }
 });
 
