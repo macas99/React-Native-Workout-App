@@ -1,8 +1,9 @@
-import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import storageService from '../DAO/storage.service';
 import { formatDateToNewFormat } from '../utils/dateFormat';
+import PopupMenu from '../components/Workout/PopupMenu';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
@@ -29,9 +30,7 @@ function Workout({ route, navigation }) {
         <View style={styles.headerContainer}>
           <Text style={styles.titleText}>{route.params.name}</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate('Home')} style={styles.optionsButton}>
-          <FontAwesome5 name="ellipsis-v" size={24} color="black" />
-        </Pressable>
+        <PopupMenu />
       </View>
 
       {workoutInfo ? (
@@ -61,13 +60,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     height: 40,
     justifyContent: 'center',
-  },
-  optionsButton: {
-    width: 40,
-    paddingHorizontal: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
   },
   headerContainer: {
     flex: 1,
