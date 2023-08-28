@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native';
+import { getRestTimeString } from '../../utils/restTime';
 
 const TableCell = ({ content = "-", flex = 4 }) => (
   <View style={[styles.tableCell, { flex, borderRightWidth: flex === 1 ? 1 : 0 }]}>
@@ -11,7 +12,7 @@ const TableRow = ({ index, set, hasWeight, isLast }) => (
     <TableCell content={index + 1} flex={1} />
     <TableCell content={set.reps} />
     {hasWeight && <TableCell content={set.weight} />}
-    <TableCell content={set.restMin} />
+    <TableCell content={getRestTimeString(set.restMin, set.restSec)} />
   </View>
 );
 
