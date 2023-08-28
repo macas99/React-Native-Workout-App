@@ -4,9 +4,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import storageService from '../DAO/storage.service';
 import { formatDateToNewFormat } from '../utils/dateFormat';
 import PopupMenu from '../components/Workout/PopupMenu';
+import WorkoutInfo from '../components/Workout/WorkoutInfo';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
+
   console.log(route.params.sets)
   const getWorkoutInfo = async () => {
     try {
@@ -36,10 +38,11 @@ function Workout({ route, navigation }) {
       {workoutInfo ? (
         <Text>Created: {formatDateToNewFormat(workoutInfo.creation)}</Text>
       ) : (
-        <Text>Loading...</Text>
+        <Text>Created: Loading...</Text>
       )}
-    </View>
 
+      <WorkoutInfo sets={route.params.sets} />
+    </View>
   );
 }
 
