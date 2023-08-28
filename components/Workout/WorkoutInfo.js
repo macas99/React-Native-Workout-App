@@ -8,7 +8,7 @@ const TableCell = ({ content = "-", flex = 4 }) => (
 );
 
 const TableRow = ({ index, set, hasWeight, isLast }) => (
-  <View key={index} style={[styles.tableRow, { borderBottomWidth: isLast ? 0 : styles.tableRow.borderBottomWidth }]}>
+  <View style={[styles.tableRow, { borderBottomWidth: isLast ? 0 : styles.tableRow.borderBottomWidth }]}>
     <TableCell content={index + 1} flex={1} />
     <TableCell content={set.reps} />
     {hasWeight && <TableCell content={set.weight} />}
@@ -35,6 +35,7 @@ function WorkoutInfo({ sets }) {
       {
         sets.map((set, index) => (
           <TableRow
+            key={index}
             index={index}
             set={set}
             hasWeight={hasWeight}
