@@ -5,11 +5,11 @@ import storageService from '../DAO/storage.service';
 import { formatDateToNewFormat } from '../utils/dateFormat';
 import PopupMenu from '../components/Workout/PopupMenu';
 import WorkoutInfo from '../components/Workout/WorkoutInfo';
+import HistoryHeader from '../components/Workout/HistoryHeader';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
 
-  console.log(route.params.sets)
   const getWorkoutInfo = async () => {
     try {
       const info = await storageService.getWorkoutInfo(route.params.name);
@@ -42,6 +42,8 @@ function Workout({ route, navigation }) {
       )}
 
       <WorkoutInfo sets={route.params.sets} />
+      <HistoryHeader />
+
     </View>
   );
 }
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     paddingRight: 60
   },
   titleText: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: '700',
   },
 });
