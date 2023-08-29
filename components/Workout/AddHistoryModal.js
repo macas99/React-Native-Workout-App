@@ -1,20 +1,25 @@
-import { StyleSheet, View, Text, Modal, Pressable, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
+import ModalButtons from './ModalButtons';
 
 function AddHistoryModal({ modalVisible, hide }) {
 
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
-      <TouchableWithoutFeedback onPress={hide}>
-        <View style={styles.modalContainer}>
-          <TouchableWithoutFeedback>
+      <View style={styles.modalContainer}>
 
-            <View style={styles.content}>
-              <Text>Modal</Text>
-            </View>
+        <View style={styles.content}>
+          <Text style={styles.title}>Add Workout History</Text>
 
-          </TouchableWithoutFeedback>
+          <View style={styles.inputSection}>
+            <Text>SETS</Text>
+          </View>
+
+          <ModalButtons hide={hide} />
+
         </View>
-      </TouchableWithoutFeedback>
+
+      </View>
+
     </Modal>
   );
 }
@@ -28,13 +33,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   content: {
-    marginTop: 100,
+    marginTop: 50,
     flex: 1,
     padding: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
     backgroundColor: 'white',
     opacity: 100
-  }
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '600'
+  },
+  inputSection: {
+    borderWidth: 1,
+    flex: 1,
+  },
 });
 
