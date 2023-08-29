@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     marginBottom: 25,
-    marginTop: 3
+    marginTop: 10
   },
   buttonContainer: {
     flex: 1,

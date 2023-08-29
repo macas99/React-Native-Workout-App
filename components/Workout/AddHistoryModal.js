@@ -4,12 +4,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import ModalSetItem from './ModalSetItem';
 
 function AddHistoryModal({ modalVisible, hide, sets }) {
+  const topMargin = sets.length <= 7 ? 400 : 200
+
   console.log(sets)
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
       <View style={styles.modalContainer}>
 
-        <View style={styles.content}>
+        <View style={[styles.content, { marginTop: topMargin }]}>
           <Text style={styles.title}>Add Workout History</Text>
 
           <View style={styles.inputSection}>
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
   },
   setInput: {
     marginTop: 20,
+    marginBottom: 20
   }
 });
 
