@@ -48,7 +48,7 @@ function Workout({ route, navigation }) {
 
       <WorkoutInfo sets={route.params.sets} />
       <HistoryHeader showModal={showModal} />
-      <AddHistoryModal modalVisible={modalVisible} hide={hideModal} />
+      <AddHistoryModal modalVisible={modalVisible} hide={hideModal} sets={route.params.sets} />
 
     </View>
   );

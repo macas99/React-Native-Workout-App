@@ -1,8 +1,10 @@
-import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import ModalButtons from './ModalButtons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import ModalSetItem from './ModalSetItem';
 
-function AddHistoryModal({ modalVisible, hide }) {
-
+function AddHistoryModal({ modalVisible, hide, sets }) {
+  console.log(sets)
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
       <View style={styles.modalContainer}>
@@ -11,7 +13,22 @@ function AddHistoryModal({ modalVisible, hide }) {
           <Text style={styles.title}>Add Workout History</Text>
 
           <View style={styles.inputSection}>
-            <Text>SETS</Text>
+            <ScrollView>
+              <Text>Input how many reps you managed to to each set this workout.</Text>
+              <View style={styles.setInput}>
+
+                {
+                  sets.map((set, index) => (
+                    <ModalSetItem
+                      key={index}
+                      index={index}
+                      set={set}
+                      isFirst={index == 0}
+                      isLast={index + 1 == sets.length} />
+                  ))
+                }
+              </View>
+            </ScrollView>
           </View>
 
           <ModalButtons hide={hide} />
@@ -20,7 +37,7 @@ function AddHistoryModal({ modalVisible, hide }) {
 
       </View>
 
-    </Modal>
+    </Modal >
   );
 }
 
@@ -36,8 +53,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
     flex: 1,
     padding: 20,
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
     backgroundColor: 'white',
     opacity: 100
   },
@@ -46,8 +61,11 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   inputSection: {
-    borderWidth: 1,
+    // borderWidth: 1,
     flex: 1,
   },
+  setInput: {
+    marginTop: 20,
+  }
 });
 
