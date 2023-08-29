@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-function HistoryHeader() {
+function HistoryHeader({ showModal }) {
 
   return (
     <View style={styles.historyHeader}>
@@ -10,7 +10,7 @@ function HistoryHeader() {
       </View>
 
       <View style={{ paddingVertical: 8 }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={showModal}>
           <FontAwesome5 name="plus-square" size={35} solid />
         </TouchableOpacity>
       </View>

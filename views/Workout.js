@@ -6,10 +6,15 @@ import { formatDateToNewFormat } from '../utils/dateFormat';
 import PopupMenu from '../components/Workout/PopupMenu';
 import WorkoutInfo from '../components/Workout/WorkoutInfo';
 import HistoryHeader from '../components/Workout/HistoryHeader';
+import AddHistoryModal from '../components/Workout/AddHistoryModal';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const hideModal = () => setModalVisible(false)
+  const showModal = () => setModalVisible(true)
 
+  console.log(workoutInfo)
   const getWorkoutInfo = async () => {
     try {
       const info = await storageService.getWorkoutInfo(route.params.name);
@@ -42,7 +47,8 @@ function Workout({ route, navigation }) {
       )}
 
       <WorkoutInfo sets={route.params.sets} />
-      <HistoryHeader />
+      <HistoryHeader showModal={showModal} />
+      <AddHistoryModal modalVisible={modalVisible} hide={hideModal} />
 
     </View>
   );
