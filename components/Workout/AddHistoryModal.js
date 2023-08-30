@@ -25,6 +25,7 @@ function AddHistoryModal({ modalVisible, hide, sets, name, refreshInfo }) {
       };
       console.log('SAVING THIS', updateData)
       await storageService.updateWorkoutItem(name, updateData);
+      setReps(sets.map(s => s.reps ? parseInt(s.reps) : 0))
       refreshInfo();
       hide();
     } catch (error) {
