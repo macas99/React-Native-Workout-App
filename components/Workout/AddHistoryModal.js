@@ -1,11 +1,19 @@
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
+import { useState } from 'react';
 import ModalButtons from './ModalButtons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ModalSetItem from './ModalSetItem';
 
 function AddHistoryModal({ modalVisible, hide, sets }) {
   const topMargin = sets.length <= 7 ? 400 : 200
-  let reps = sets.map(s => s.reps)
+  const [reps, setReps] = useState(sets.map(s => s.reps ? parseInt(s.reps) : 0));
+
+  function onRepChange(newRep, index) {
+    const newReps = [...reps];
+    newReps[index] = newRep;
+    setReps(newReps);
+    console.log(reps)
+  }
 
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
@@ -25,6 +33,7 @@ function AddHistoryModal({ modalVisible, hide, sets }) {
                       key={index}
                       index={index}
                       reps={r}
+                      onRepChange={onRepChange}
                       isFirst={index == 0}
                       isLast={index + 1 == sets.length} />
                   ))

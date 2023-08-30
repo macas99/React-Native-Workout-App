@@ -1,7 +1,27 @@
+import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-function ModalSetItem({ index, reps, isFirst, isLast }) {
+function ModalSetItem({ index, reps, onRepChange, isFirst, isLast }) {
+  const [repititions, setRepititions] = useState(reps)
+
+  const handleMinusPress = () => {
+    if (repititions <= 0) {
+      return;
+    }
+    const newReps = repititions - 1;
+    setRepititions(newReps);
+    onRepChange(newReps, index);
+  };
+
+  const handlePlusPress = () => {
+    if (repititions >= 99) {
+      return;
+    }
+    const newReps = repititions + 1;
+    setRepititions(newReps);
+    onRepChange(newReps, index);
+  };
 
   return (
     <View style={[
@@ -18,12 +38,12 @@ function ModalSetItem({ index, reps, isFirst, isLast }) {
         <Text>{index + 1}</Text>
       </View>
 
-      <TouchableOpacity style={styles.icons}>
+      <TouchableOpacity style={styles.icons} onPress={handleMinusPress}>
         <FontAwesome5 name="minus" size={27} color="white" />
       </TouchableOpacity>
 
       <View style={styles.repNumber}>
-        <Text style={styles.repNumberText}>{reps}</Text>
+        <Text style={styles.repNumberText}>{repititions}</Text>
       </View>
 
       <TouchableOpacity style={[
@@ -32,7 +52,7 @@ function ModalSetItem({ index, reps, isFirst, isLast }) {
         {
           borderTopRightRadius: isFirst ? 10 : 0,
           borderBottomRightRadius: isLast ? 10 : 0,
-        }]}>
+        }]} onPress={handlePlusPress}>
         <FontAwesome5 name="plus" size={27} color="white" />
       </TouchableOpacity>
 
