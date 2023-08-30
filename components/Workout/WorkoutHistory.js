@@ -13,7 +13,9 @@ function WorkoutHistory({ history }) {
     <View>
       {
         history.map((r, index) => (
-          <Text>{index}</Text>
+          <View key={index}>
+            <Text>{r.reps.join(' ')}</Text>
+          </View>
         ))
       }
     </View>

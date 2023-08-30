@@ -1,13 +1,13 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-function ModalButtons({ hide }) {
+function ModalButtons({ hide, logHistory }) {
   return (
     <View style={styles.buttonsContainer}>
       <TouchableOpacity onPress={hide} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>CANCEL</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={hide} style={styles.buttonContainer}>
+      <TouchableOpacity onPress={logHistory} style={styles.buttonContainer}>
         <Text style={[styles.buttonText, styles.addText]}>ADD</Text>
       </TouchableOpacity>
     </View>

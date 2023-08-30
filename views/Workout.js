@@ -28,6 +28,10 @@ function Workout({ route, navigation }) {
     getWorkoutInfo();
   }, []);
 
+  useEffect(() => {
+    console.log("workoutInfo has changed:", workoutInfo);
+  }, [workoutInfo]);
+  
   return (
     <View style={styles.appContainer}>
       <View style={styles.topContainer}>
@@ -48,7 +52,12 @@ function Workout({ route, navigation }) {
 
       <WorkoutInfo sets={route.params.sets} />
       <HistoryHeader showModal={showModal} />
-      <AddHistoryModal modalVisible={modalVisible} hide={hideModal} sets={route.params.sets} />
+      <AddHistoryModal
+        modalVisible={modalVisible}
+        hide={hideModal}
+        sets={route.params.sets}
+        name={route.params.name}
+        refreshInfo={getWorkoutInfo} />
 
       {workoutInfo ? (
         <WorkoutHistory history={workoutInfo.history} />

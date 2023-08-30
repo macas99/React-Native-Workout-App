@@ -48,6 +48,20 @@ class StorageService {
     await AsyncStorage.setItem('@' + name, JSON.stringify(workoutLog));
   }
 
+  async updateWorkoutItem(workout, log) {
+    try {
+      const saved = await AsyncStorage.getItem('@' + workout);
+      if (saved === null) {
+        return;
+      }
+      let workoutLog = JSON.parse(saved);
+      workoutLog.history.push(log);
+      await AsyncStorage.setItem('@' + workout, JSON.stringify(workoutLog));
+    } catch (error) {
+      console.log('Error updating workout item:', error);
+    }
+  }
+
   async deleteWorkoutItem(name) {
     try {
       await AsyncStorage.removeItem('@' + name);

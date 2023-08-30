@@ -3,8 +3,9 @@ import { useState } from 'react';
 import ModalButtons from './ModalButtons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ModalSetItem from './ModalSetItem';
+import storageService from '../../DAO/storage.service';
 
-function AddHistoryModal({ modalVisible, hide, sets }) {
+function AddHistoryModal({ modalVisible, hide, sets, name, refreshInfo }) {
   const topMargin = sets.length <= 7 ? 400 : 200
   const [reps, setReps] = useState(sets.map(s => s.reps ? parseInt(s.reps) : 0));
 
@@ -14,6 +15,22 @@ function AddHistoryModal({ modalVisible, hide, sets }) {
     setReps(newReps);
     console.log(reps)
   }
+
+  const logHistory = async () => {
+    try {
+      const sessionDate = new Date().toISOString();
+      const updateData = {
+        date: sessionDate,
+        reps: reps
+      };
+      console.log('SAVING THIS', updateData)
+      await storageService.updateWorkoutItem(name, updateData);
+      refreshInfo();
+      hide();
+    } catch (error) {
+      console.log('Error logging workout history', error);
+    }
+  };
 
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
@@ -42,7 +59,7 @@ function AddHistoryModal({ modalVisible, hide, sets }) {
             </ScrollView>
           </View>
 
-          <ModalButtons hide={hide} />
+          <ModalButtons hide={hide} logHistory={logHistory} />
 
         </View>
 
