@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, SectionList } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 
 function WorkoutHistory({ history }) {
   if (!history || history.length === 0) {
@@ -10,15 +10,16 @@ function WorkoutHistory({ history }) {
   }
 
   return (
-    <View>
-      {
-        history.map((r, index) => (
-          <View key={index}>
-            <Text>{r.reps.join(' ')}</Text>
-          </View>
-        ))
-      }
-    </View>
+    <FlatList
+      data={history}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => (
+        <View style={{ borderWidth: 1 }}>
+          <Text>{item.date}</Text>
+          <Text>{item.reps.join(' ')}</Text>
+        </View>
+      )}
+    />
   );
 }
 
