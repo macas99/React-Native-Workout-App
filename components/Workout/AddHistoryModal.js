@@ -5,8 +5,8 @@ import ModalSetItem from './ModalSetItem';
 
 function AddHistoryModal({ modalVisible, hide, sets }) {
   const topMargin = sets.length <= 7 ? 400 : 200
+  let reps = sets.map(s => s.reps)
 
-  console.log(sets)
   return (
     <Modal visible={modalVisible} animationType='fade' transparent>
       <View style={styles.modalContainer}>
@@ -20,11 +20,11 @@ function AddHistoryModal({ modalVisible, hide, sets }) {
               <View style={styles.setInput}>
 
                 {
-                  sets.map((set, index) => (
+                  reps.map((r, index) => (
                     <ModalSetItem
                       key={index}
                       index={index}
-                      set={set}
+                      reps={r}
                       isFirst={index == 0}
                       isLast={index + 1 == sets.length} />
                   ))

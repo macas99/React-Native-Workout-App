@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-function ModalSetItem({ index, set, isFirst, isLast }) {
-  console.log(isFirst)
+function ModalSetItem({ index, reps, isFirst, isLast }) {
+
   return (
     <View style={[
       styles.setItem,
@@ -23,7 +23,7 @@ function ModalSetItem({ index, set, isFirst, isLast }) {
       </TouchableOpacity>
 
       <View style={styles.repNumber}>
-        <Text style={styles.repNumberText}>{set.reps}</Text>
+        <Text style={styles.repNumberText}>{reps}</Text>
       </View>
 
       <TouchableOpacity style={[

@@ -14,7 +14,6 @@ function Workout({ route, navigation }) {
   const hideModal = () => setModalVisible(false)
   const showModal = () => setModalVisible(true)
 
-  console.log(workoutInfo)
   const getWorkoutInfo = async () => {
     try {
       const info = await storageService.getWorkoutInfo(route.params.name);
