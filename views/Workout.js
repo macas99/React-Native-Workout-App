@@ -7,6 +7,7 @@ import PopupMenu from '../components/Workout/PopupMenu';
 import WorkoutInfo from '../components/Workout/WorkoutInfo';
 import HistoryHeader from '../components/Workout/HistoryHeader';
 import AddHistoryModal from '../components/Workout/AddHistoryModal';
+import WorkoutHistory from '../components/Workout/WorkoutHistory';
 
 function Workout({ route, navigation }) {
   const [workoutInfo, setWorkoutInfo] = useState(null);
@@ -48,6 +49,12 @@ function Workout({ route, navigation }) {
       <WorkoutInfo sets={route.params.sets} />
       <HistoryHeader showModal={showModal} />
       <AddHistoryModal modalVisible={modalVisible} hide={hideModal} sets={route.params.sets} />
+
+      {workoutInfo ? (
+        <WorkoutHistory history={workoutInfo.history} />
+      ) : (
+        <Text>Loading...</Text>
+      )}
 
     </View>
   );
