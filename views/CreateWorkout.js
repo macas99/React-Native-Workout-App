@@ -30,6 +30,22 @@ function CreateWorkout({ navigation }) {
     setSets(prevSets => prevSets.slice(0, -1));
   };
 
+  const validateInput = (workout) => {
+    if (!workout.name.trim()) {
+      alert("Please input a title.");
+      return false
+    }
+
+    for (let set of workout.sets) {
+      if (!set.reps || !set.reps.trim()) {
+        alert("Please make sure each set has reps defined.");
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   const saveWorkout = async () => {
 
     const currentDate = new Date();
@@ -51,6 +67,11 @@ function CreateWorkout({ navigation }) {
       sets: [...sets],
       date: formattedDate,
     };
+
+    if (!validateInput(newWorkout)) {
+      return;
+    }
+
     storageService.storeWorkout(newWorkout).then(() => navigation.navigate('Home'));
   }
 
