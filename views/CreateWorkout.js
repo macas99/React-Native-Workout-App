@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { getFormattedDate } from '../utils/dateFormat';
 import SetCounter from '../components/CreateWorkout/SetCounter';
 import TitleInput from '../components/CreateWorkout/TitleInput';
 import Set from '../components/CreateWorkout/Set';
@@ -75,13 +76,7 @@ function CreateWorkout({ navigation }) {
 
   const saveWorkout = async () => {
 
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    let month = currentDate.getMonth() + 1;
-    let date = currentDate.getDate();
-    if (month < 10) month = '0' + month;
-    if (date < 10) date = '0' + date;
-    const formattedDate = `${year}-${month}-${date}`;
+    const formattedDate = getFormattedDate();
 
     const existingWorkouts = await storageService.getWorkoutData();
     if (existingWorkouts && existingWorkouts.some(workout => workout.name === workoutName)) {

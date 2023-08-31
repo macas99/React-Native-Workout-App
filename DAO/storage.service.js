@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getFormattedDate } from '../utils/dateFormat';
 
 class StorageService {
 
@@ -57,10 +58,33 @@ class StorageService {
       let workoutLog = JSON.parse(saved);
       workoutLog.history.push(log);
       await AsyncStorage.setItem('@' + workout, JSON.stringify(workoutLog));
+      await this.updateWorkoutDate(workout)
     } catch (error) {
       console.log('Error updating workout item:', error);
     }
   }
+
+  async updateWorkoutDate(workoutName) {
+    const formattedDate = getFormattedDate()
+
+    try {
+      const workoutDataStr = await AsyncStorage.getItem('@workout_data');
+      if (workoutDataStr !== null) {
+        const workoutData = JSON.parse(workoutDataStr);
+        const workoutIndex = workoutData.findIndex(w => w.name === workoutName);
+        if (workoutIndex !== -1) {
+          workoutData[workoutIndex].date = formattedDate;
+          await AsyncStorage.setItem('@workout_data', JSON.stringify(workoutData));
+        } else {
+          console.log("Workout not found");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  }
+
 
   async updateHistory(workout, history) {
     try {
