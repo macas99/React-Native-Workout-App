@@ -62,6 +62,20 @@ class StorageService {
     }
   }
 
+  async updateHistory(workout, history) {
+    try {
+      const saved = await AsyncStorage.getItem('@' + workout);
+      if (saved === null) {
+        return;
+      }
+      let workoutLog = JSON.parse(saved);
+      workoutLog.history = history;
+      await AsyncStorage.setItem('@' + workout, JSON.stringify(workoutLog));
+    } catch (error) {
+      console.log('Error updating history:', error);
+    }
+  }
+
   async deleteWorkoutItem(name) {
     try {
       await AsyncStorage.removeItem('@' + name);
@@ -69,7 +83,6 @@ class StorageService {
       console.log(`Error deleting workout item ${error}`);
     }
   }
-
 
   async getWorkoutInfo(workout) {
     try {

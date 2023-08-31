@@ -24,14 +24,17 @@ function Workout({ route, navigation }) {
     }
   };
 
+  const deleteSession = async (index) => {
+    const newHistory = [...workoutInfo.history];
+    newHistory.splice(index, 1);
+    await storageService.updateHistory(route.params.name, newHistory)
+    getWorkoutInfo()
+  }
+
   useEffect(() => {
     getWorkoutInfo();
   }, []);
 
-  useEffect(() => {
-    console.log("workoutInfo has changed:", workoutInfo);
-  }, [workoutInfo]);
-  
   return (
     <View style={styles.appContainer}>
       <View style={styles.topContainer}>
@@ -60,7 +63,7 @@ function Workout({ route, navigation }) {
         refreshInfo={getWorkoutInfo} />
 
       {workoutInfo ? (
-        <WorkoutHistory history={workoutInfo.history} />
+        <WorkoutHistory history={workoutInfo.history} deleteSession={deleteSession} />
       ) : (
         <Text>Loading...</Text>
       )}
