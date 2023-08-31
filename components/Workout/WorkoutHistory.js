@@ -3,6 +3,7 @@ import { formatDateToNewFormat } from '../../utils/dateFormat';
 import { formatTime } from '../../utils/dateFormat';
 
 function WorkoutHistory({ history, deleteSession }) {
+  const reversedHistory = [...history].reverse();
 
   const deleteAlert = (index) => {
     Alert.alert('Delete', 'Delete session log?', [
@@ -30,11 +31,11 @@ function WorkoutHistory({ history, deleteSession }) {
 
   return (
     <FlatList
-      data={history}
+      data={reversedHistory}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item, index }) => (
         <View style={{ borderWidth: 1, borderTopWidth: index == 0 ? 1 : 0 }}>
-          <TouchableOpacity onLongPress={() => deleteAlert(index)}>
+          <TouchableOpacity onLongPress={() => deleteAlert(history.length - 1 - index)}>
             <Text>{formatDateToNewFormat(item.date)}@{formatTime(item.date)}</Text>
             <Text>Reps: {item.reps.join('-')}</Text>
           </TouchableOpacity>
