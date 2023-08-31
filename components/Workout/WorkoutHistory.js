@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { formatDateToNewFormat } from '../../utils/dateFormat';
+import { formatTime } from '../../utils/dateFormat';
 
 function WorkoutHistory({ history }) {
   if (!history || history.length === 0) {
@@ -13,10 +15,10 @@ function WorkoutHistory({ history }) {
     <FlatList
       data={history}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => (
-        <View style={{ borderWidth: 1 }}>
-          <Text>{item.date}</Text>
-          <Text>{item.reps.join(' ')}</Text>
+      renderItem={({ item, index }) => (
+        <View style={{ borderWidth: 1, borderTopWidth: index == 0 ? 1 : 0 }}>
+          <Text>{formatDateToNewFormat(item.date)}@{formatTime(item.date)}</Text>
+          <Text>Reps: {item.reps.join('-')}</Text>
         </View>
       )}
     />
