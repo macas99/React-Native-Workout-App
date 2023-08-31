@@ -7,14 +7,18 @@ const TableCell = ({ content = "-", flex = 4 }) => (
   </View>
 );
 
-const TableRow = ({ index, set, hasWeight, isLast }) => (
-  <View style={[styles.tableRow, { borderBottomWidth: isLast ? 0 : styles.tableRow.borderBottomWidth }]}>
-    <TableCell content={index + 1} flex={1} />
-    <TableCell content={set.reps} />
-    {hasWeight && <TableCell content={set.weight} />}
-    <TableCell content={getRestTimeString(set.restMin, set.restSec)} />
-  </View>
-);
+const TableRow = ({ index, set, hasWeight, isLast }) => {
+  const restTimeString = getRestTimeString(set.restMin, set.restSec);
+
+  return (
+    <View style={[styles.tableRow, { borderBottomWidth: isLast ? 0 : styles.tableRow.borderBottomWidth }]}>
+      <TableCell content={index + 1} flex={1} />
+      <TableCell content={set.reps} />
+      {hasWeight && <TableCell content={set.weight} />}
+      <TableCell content={restTimeString === "00:00" ? "-" : restTimeString} />
+    </View>
+  );
+}
 
 function WorkoutInfo({ sets }) {
   const hasWeight = sets.some(set => 'weight' in set);
