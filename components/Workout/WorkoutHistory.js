@@ -23,7 +23,7 @@ function WorkoutHistory({ history, deleteSession }) {
   if (!history || history.length === 0) {
     return (
       <View style={styles.messageContainer}>
-        <Text style={styles.messageText}>Press + to log a workout</Text>
+        <Text style={styles.messageText}>Press + to log a session</Text>
       </View>
     );
   }

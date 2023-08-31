@@ -54,6 +54,7 @@ function Home({ navigation }) {
           const sectionedData = sectionWorkouts(workoutData);
           setWorkouts(sectionedData);
         } else {
+          setWorkouts([]);
           console.log("No workouts found");
         }
       });
