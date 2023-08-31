@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, ScrollView, Switch } from 'react-native';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -16,6 +16,16 @@ function CreateWorkout({ navigation }) {
   const [weightsEnabled, setWeightsEnabled] = useState(false);
   const [sets, setSets] = useState([]);
 
+  useEffect(() => {
+    if (!weightsEnabled) {
+      const newSets = sets.map(set => {
+        const { weight, ...rest } = set;
+        return rest;
+      });
+      setSets(newSets);
+    }
+  }, [weightsEnabled]);
+
   const onSetChange = (index, field, value) => {
     const newSets = [...sets];
     newSets[index] = { ...newSets[index], [field]: value };
@@ -31,6 +41,7 @@ function CreateWorkout({ navigation }) {
   };
 
   const validateInput = (workout) => {
+    console.log(workout)
     if (!workout.name.trim()) {
       alert("Please input a title.");
       return false
@@ -40,6 +51,22 @@ function CreateWorkout({ navigation }) {
       if (!set.reps || !set.reps.trim()) {
         alert("Please make sure each set has reps defined.");
         return false;
+      }
+    }
+
+    for (let set of workout.sets) {
+      if (!set.restMin && !set.restSec) {
+        alert("Please make sure each set has a rest time defined.");
+        return false;
+      }
+    }
+
+    if (weightsEnabled) {
+      for (let set of workout.sets) {
+        if (!set.weight) {
+          alert("Please make sure each set has a weight defined.");
+          return false;
+        }
       }
     }
 
