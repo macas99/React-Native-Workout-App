@@ -40,6 +40,10 @@ function Set({ index, weightsEnabled, onChange }) {
           if (fieldKey === 'weight' && (value.length > 5 || value.split(',').length - 1 > 1)) {
             return;
           }
+          if (fieldKey === 'restSec' && value > 59) {
+            return;
+          }
+
           handleChange(fieldKey, value)
         }}
 

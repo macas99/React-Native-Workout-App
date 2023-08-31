@@ -38,11 +38,11 @@ function AddHistoryModal({ modalVisible, hide, sets, name, refreshInfo }) {
       <View style={styles.modalContainer}>
 
         <View style={[styles.content, { marginTop: topMargin }]}>
-          <Text style={styles.title}>Add Workout History</Text>
+          <Text style={styles.title}>Log Workout Session</Text>
 
           <View style={styles.inputSection}>
-            <ScrollView>
-              <Text>Input how many reps you managed to to each set this workout.</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text>Input the reps you've done for each set this session.</Text>
               <View style={styles.setInput}>
 
                 {

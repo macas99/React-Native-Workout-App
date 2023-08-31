@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 function AddButton(props) {
   return (
     <View style={styles.addWorkoutContainer}>
-      <Pressable onPress={() => props.navigation.navigate('CreateWorkout')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('CreateWorkout')}>
         <View style={styles.button}>
           <Text style={styles.text}>ADD</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
