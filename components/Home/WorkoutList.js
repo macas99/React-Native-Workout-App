@@ -29,6 +29,7 @@ function WorkoutList(props) {
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.dateHeader}>{title}</Text>
       )}
+      ListFooterComponent={<View style={{ height: 20 }} />}
     />
   );
 }

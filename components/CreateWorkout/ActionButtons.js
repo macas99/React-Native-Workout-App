@@ -17,7 +17,7 @@ function ActionButtons({ navigateHome, addSets }) {
         onPress={addSets}
 
       >
-        <Text style={styles.buttonText}>Add</Text>
+        <Text style={styles.buttonText}>Save</Text>
       </Pressable>
     </View >
   );

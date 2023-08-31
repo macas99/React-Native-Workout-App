@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';;
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';;
 import { FontAwesome } from '@expo/vector-icons';
 
 function SetCounter({ setNumber, setSetNumber, createSet, removeSet }) {
@@ -23,9 +23,13 @@ function SetCounter({ setNumber, setSetNumber, createSet, removeSet }) {
 
   return (
     <View style={styles.setNumberView}>
-      <FontAwesome name="minus-square" size={40} color="#40e0d0" onPress={handleMinusPress} />
+      <TouchableOpacity onPress={handleMinusPress}>
+        <FontAwesome name="minus-square" size={40} color="#40e0d0" />
+      </TouchableOpacity>
       <Text style={styles.setInput}>{setNumber}</Text>
-      <FontAwesome name="plus-square" size={40} color="#40e0d0" onPress={handlePlusPress} />
+      <TouchableOpacity onPress={handlePlusPress}>
+        <FontAwesome name="plus-square" size={40} color="#40e0d0" />
+      </TouchableOpacity>
     </View>
   );
 }

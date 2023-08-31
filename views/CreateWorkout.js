@@ -12,9 +12,9 @@ import storageService from '../DAO/storage.service';
 
 function CreateWorkout({ navigation }) {
   const [workoutName, setWorkoutName] = useState('');
-  const [setNumber, setSetNumber] = useState(0);
+  const [setNumber, setSetNumber] = useState(1);
   const [weightsEnabled, setWeightsEnabled] = useState(false);
-  const [sets, setSets] = useState([]);
+  const [sets, setSets] = useState([{}]);
 
   useEffect(() => {
     if (!weightsEnabled) {
