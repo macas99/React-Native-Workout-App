@@ -24,10 +24,14 @@ React Native app for tracking workouts.
 
 ---
 ### Overview
-![ezgif-1-9cf6981f81](https://github.com/macas99/workout-tracker/assets/111273682/0c6d5a52-0406-4481-b64f-abbaf6010e5f)
+![home](https://github.com/macas99/React-Native-Workout-App/assets/111273682/51348c1d-72a3-4b8d-a18d-feccbb0a91f2)
+![workout](https://github.com/macas99/React-Native-Workout-App/assets/111273682/718d7ba3-76c7-4f35-be14-eba48400cca1)
 
 ### Create/delete workouts
-![ezgif-4-bc699a8dd3](https://github.com/macas99/workout-tracker/assets/111273682/d6fcd8a2-a6ff-4bdd-9bc4-c32b3ad97f54)
+![create](https://github.com/macas99/React-Native-Workout-App/assets/111273682/fa501329-5114-40cc-9296-8abc49cb9b3a)
+![deletew](https://github.com/macas99/React-Native-Workout-App/assets/111273682/5670b783-38e4-438b-8e97-504d2ffc7221)
 
 ### Log workout sessions - delete logs
-![ezgif-4-15cc24e890](https://github.com/macas99/workout-tracker/assets/111273682/ce735e9e-983b-482a-9c7d-4cec13807f91)
+![log](https://github.com/macas99/React-Native-Workout-App/assets/111273682/0d05eeb1-afc1-429e-9b9a-e7de06724278)
+![deletel](https://github.com/macas99/React-Native-Workout-App/assets/111273682/74ba02cf-3dd1-4edb-90a5-55bedbd97b7b)
+
